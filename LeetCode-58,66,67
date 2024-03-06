@@ -1,0 +1,62 @@
+class Solution {
+/*
+LeetCode-58 最后一个单词的长度
+给你一个字符串 s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中 最后一个 单词的长度。
+单词 是指仅由字母组成、不包含任何空格字符的最大
+子字符串.
+*/
+  public int lengthOfLastWord(String s) {
+    int end = s.length() - 1;
+    while(end >= 0 && s.charAt(end) == ' ') {
+      end--;
+    }
+    if(end < 0) {
+      return 0;
+    }
+    int start = end;
+    while(start >= 0 && s.charAt(start) != ' ') {
+      start--;
+    }
+    return end - start;
+  }
+
+/*
+LeetCode-66 加一
+给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
+最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+你可以假设除了整数 0 之外，这个整数不会以零开头。
+*/
+  public int[] plusOne(int[] digits) {
+    for(int i = digits.length - 1; i >= 0; i--) {
+      if(digits[i] == 9) {
+        digits[i] = 0;
+      } else {
+        digits[i]++;
+        return digits;
+      }
+    }
+    int[] newArr = new int[digits.length + 1];
+    newArr[0] = 1;
+    return newArr;
+  }
+/*
+LeetCode-67 二进制求和
+给你两个二进制字符串 a 和 b ，以二进制字符串的形式返回它们的和。
+*/
+  public String addBinary(String a, String b) {
+    StringBuffer s = new StringBuffer();
+    int n = Math.max(a.length(), b.length());
+    int carry = 0; //carry用来控制进位
+    for(int i = 0; i < n; i++) {
+      carry += i < a.length() ? (a.charAt(a.length() - 1 - i) - '0') : 0;
+      carry += i < b.length() ? (b.charAt(b.length() - 1 - i) - '0') : 0;
+      s.append((char)(carry % 2 + '0'));
+      carry /= 2;
+    }
+    if(carry > 0) {
+      s.append(1);
+    }
+    s.reverse();
+    return s.toString();
+  }
+}
